@@ -7,6 +7,10 @@
             name="model"
             type="com.example.zadanie.ui.viewmodels.AuthViewModel" />
 
+        <variable
+            name="signUpFragment"
+            type="com.example.zadanie.ui.fragments.SignUpFragment" />
+
         <import type="android.view.View"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,20 +22,22 @@
         <TextView
             android:id="@+id/header_title"
             style="@style/TextAppearance.Material3.HeadlineLarge"
-            android:layout_marginStart="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_sign_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintVertical_bias="0.13" />
 
         <EditText
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="72dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/prompt_email"
             android:hint="@string/prompt_email"
@@ -43,16 +49,17 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="0dp"
+            android:layout_width="252dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/prompt_password"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -73,6 +80,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password" />
 
+
         <Button
             android:id="@+id/signup"
             android:layout_width="wrap_content"
@@ -85,22 +93,22 @@
             android:text="@string/action_sign_up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.523"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintVertical_bias="0.2" />
-
+            app:layout_constraintVertical_bias="0.21" />
 
         <TextView
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/or_log_in"
-            app:layout_constraintTop_toBottomOf="@id/signup"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="64dp"
             android:padding="30dp"
-            />
+            android:text="@string/or_log_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.558"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signup" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -119,6 +127,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/back_to_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/password_visibility_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/password_visibility_button_toggle_text"
+            android:onClick="@{() -> signUpFragment.passwordVisibilityToggle()}"
+            android:src="@drawable/ic_baseline_visibility_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/password"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.387" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

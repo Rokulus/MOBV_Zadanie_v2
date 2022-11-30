@@ -2,15 +2,16 @@
     <string name="app_name">Zadanie</string>
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
-    <string name="action_login">Login</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="action_login">Log In</string>
+    <string name="login_failed">"Log In failed"</string>
     <string name="action_sign_up">Sign up </string>
     <string name="login_sign_up">"Sign up failed"</string>
-    <string name="or_log_in">or log in</string>
-    <string name="or_create_account">or create account.</string>
+    <string name="or_log_in">Already have an account ?</string>
+    <string name="create_account">Create account ?</string>
     <string name="bars">Bars</string>
     <string name="log_out">Log out</string>
-    <string name="repeat_password">repeat password</string>
+    <string name="repeat_password">Password again</string>
     <string name="back">back</string>
     <string name="zobrazit_na_mape">Zobrazit na mape</string>
+    <string name="password_visibility_button_toggle_text">Toggle Password Visibility</string>
 </resources>

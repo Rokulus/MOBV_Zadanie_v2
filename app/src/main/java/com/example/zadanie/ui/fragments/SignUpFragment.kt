@@ -1,6 +1,7 @@
 package com.example.zadanie.ui.fragments
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,16 @@ import com.example.zadanie.databinding.FragmentSignUpBinding
 import com.example.zadanie.helpers.Injection
 import com.example.zadanie.helpers.PreferenceData
 import com.example.zadanie.ui.viewmodels.AuthViewModel
+import android.text.InputType.TYPE_CLASS_TEXT
+import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+import com.example.zadanie.R.drawable.ic_baseline_visibility_24
+import com.example.zadanie.R.drawable.ic_baseline_visibility_off_24
+import com.example.zadanie.helpers.Config.PASSWORD_PATTERN
 
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var authViewModel: AuthViewModel
+    private var passwordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,23 +55,26 @@ class SignUpFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             model = authViewModel
+            signUpFragment = this@SignUpFragment
         }
 
         binding.signup.setOnClickListener {
-            if (binding.username.text.toString().isNotBlank() && binding.password.text.toString().isNotBlank()
+            if (!validatePassword()){
+                authViewModel.show("Password must contain 4 length, one number, one lower case letter, one upper case latter")
+            }  else if (binding.username.text.toString().isBlank() || binding.password.text.toString().isBlank()){
+                authViewModel.show("Fill in name and password")
+            }  else if (binding.username.text.toString().isNotBlank() && binding.password.text.toString().isNotBlank()
                 && binding.password.text.toString().compareTo(binding.repeatPassword.text.toString())==0) {
                 authViewModel.signup(
                     binding.username.text.toString(),
                     binding.password.text.toString()
                 )
-            } else if (binding.username.text.toString().isBlank() || binding.password.text.toString().isBlank()){
-                authViewModel.show("Fill in name and password")
             } else {
                 authViewModel.show("Passwords must be same")
             }
         }
 
-        binding.login.setOnClickListener {
+        binding.backToLoginButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_to_login)
         }
 
@@ -76,4 +86,53 @@ class SignUpFragment : Fragment() {
         }
 
     }
+
+    fun singUpValid(): Boolean {
+        val usernameValid = validateUsername()
+        val passwordValid = validatePassword()
+
+        return usernameValid && passwordValid
+    }
+
+    fun validateUsername(): Boolean {
+
+        return true
+    }
+
+    fun validatePassword(): Boolean {
+        binding.password.let {
+            if(!PASSWORD_PATTERN.toRegex().matches(it.text)){
+                return false
+            }
+        }
+        return true
+    }
+
+    fun passwordVisibilityToggle() {
+        binding.password.apply {
+            inputType = when (passwordVisible){
+                true -> TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
+                false -> TYPE_CLASS_TEXT
+            }
+            setSelection(text.length)
+        }
+
+        binding.repeatPassword.apply {
+            inputType = when (passwordVisible){
+                true -> TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
+                false -> TYPE_CLASS_TEXT
+            }
+            setSelection(text.length)
+        }
+
+        binding.passwordVisibilityButton.apply {
+            val imageSource = when (passwordVisible) {
+                true -> ic_baseline_visibility_24
+                false -> ic_baseline_visibility_off_24
+            }
+            setImageResource(imageSource)
+        }
+        passwordVisible = !passwordVisible
+    }
+
 }
