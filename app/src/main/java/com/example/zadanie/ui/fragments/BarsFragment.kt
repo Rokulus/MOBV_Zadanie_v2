@@ -4,11 +4,17 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -18,7 +24,7 @@ import com.example.zadanie.helpers.Injection
 import com.example.zadanie.helpers.PreferenceData
 import com.example.zadanie.ui.viewmodels.BarsViewModel
 
-class BarsFragment : Fragment() {
+class BarsFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentBarsBinding
     private lateinit var viewmodel: BarsViewModel
 
@@ -57,6 +63,10 @@ class BarsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBarsBinding.inflate(inflater, container, false)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         return binding.root
     }
 
@@ -73,10 +83,6 @@ class BarsFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             model = viewmodel
         }.also { bnd ->
-            bnd.logout.setOnClickListener {
-                PreferenceData.getInstance().clearData(requireContext())
-                Navigation.findNavController(it).navigate(R.id.action_to_login)
-            }
 
             bnd.swiperefresh.setOnRefreshListener {
                 viewmodel.refreshData()
@@ -115,5 +121,19 @@ class BarsFragment : Fragment() {
             requireContext(),
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.bars_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when(menuItem.itemId){
+            R.id.logoutMenuItem -> {
+                PreferenceData.getInstance().clearData(requireContext())
+                view?.let { Navigation.findNavController(it).navigate(R.id.action_to_login) }
+            }
+        }
+        return false
     }
 }
