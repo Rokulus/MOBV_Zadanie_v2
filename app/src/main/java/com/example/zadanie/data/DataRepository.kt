@@ -1,10 +1,12 @@
 package com.example.zadanie.data
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.zadanie.data.api.*
 import com.example.zadanie.data.db.LocalCache
 import com.example.zadanie.data.db.model.BarItem
+import com.example.zadanie.data.db.model.ContactItem
 import com.example.zadanie.ui.viewmodels.data.MyLocation
 import com.example.zadanie.ui.viewmodels.data.NearbyBar
 import java.io.IOException
@@ -110,7 +112,6 @@ class DataRepository private constructor(
             val resp = service.barList()
             if (resp.isSuccessful) {
                 resp.body()?.let { bars ->
-
                     val b = bars.map {
                         BarItem(
                             it.bar_id,
@@ -203,6 +204,46 @@ class DataRepository private constructor(
 
     fun dbBars() : LiveData<List<BarItem>?> {
         return cache.getBars()
+    }
+
+    suspend fun apiContactList(
+        onError: (error: String) -> Unit
+    ) {
+        try {
+            val resp = service.contactList()
+            if (resp.isSuccessful) {
+                resp.body()?.let { contacts ->
+                    Log.i("Contacts before map", contacts.toString())
+                    val c = contacts.map {
+                        ContactItem(
+                            it.user_id,
+                            it.user_name,
+                            it.bar_id,
+                            it.bar_name,
+                            it.time,
+                            it.bar_lat,
+                            it.bar_lon
+                        )
+                    }
+                    cache.deleteContacts()
+                    cache.insertContacts(c)
+                    Log.i("Contacts", c.toString())
+                } ?: onError("Failed to load contacts")
+            } else {
+                onError("Failed to read contacts")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to load contacts, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            Log.e("Exception caught:", ex.toString())
+            onError("Failed to load contacts, error.")
+        }
+    }
+
+    fun dbContacts() : LiveData<List<ContactItem>?> {
+        return cache.getContacts()
     }
 
     companion object{

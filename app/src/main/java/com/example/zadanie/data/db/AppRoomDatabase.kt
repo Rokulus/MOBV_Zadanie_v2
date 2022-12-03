@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.zadanie.data.db.model.BarItem
+import com.example.zadanie.data.db.model.ContactItem
 
-@Database(entities = [BarItem::class], version = 1, exportSchema = false)
+@Database(entities = [BarItem::class, ContactItem::class], version = 1, exportSchema = false)
 abstract class AppRoomDatabase: RoomDatabase() {
     abstract fun appDao(): DbDao
 
@@ -22,7 +23,7 @@ abstract class AppRoomDatabase: RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                AppRoomDatabase::class.java, "barsDatabase"
+                AppRoomDatabase::class.java, "zadanieDatabase"
             ).fallbackToDestructiveMigration()
                 .build()
     }

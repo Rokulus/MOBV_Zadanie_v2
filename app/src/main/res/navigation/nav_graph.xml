@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/bars_fragment"
     android:id="@+id/nav_graph">
 
@@ -31,6 +32,12 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/contacts_fragment"
+        android:name="com.example.zadanie.ui.fragments.ContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_contacts" />
+
     <action
         android:id="@+id/action_to_login"
         app:destination="@id/login_fragment" />
@@ -43,8 +50,10 @@
     <action
         android:id="@+id/action_to_locate"
         app:destination="@id/locate_fragment" />
-
     <action
         android:id="@+id/action_to_detail"
         app:destination="@id/detail_fragment" />
+    <action
+        android:id="@+id/action_to_contacts"
+        app:destination="@+id/contacts_fragment"/>
 </navigation>

@@ -26,3 +26,13 @@ data class BarDetailItemResponse(
 data class BarDetailResponse(
     val elements: List<BarDetailItemResponse>
 )
+
+data class ContactListResponse(
+    val user_id: String,
+    val user_name: String,
+    val bar_id: String,
+    val bar_name: String,
+    val time: String,
+    val bar_lat: Double,
+    val bar_lon: Double
+)

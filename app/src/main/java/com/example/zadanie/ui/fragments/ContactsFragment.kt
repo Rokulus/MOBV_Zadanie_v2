@@ -3,49 +3,25 @@ package com.example.zadanie.ui.fragments
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.core.app.ActivityCompat
+import androidx.core.view.MenuHost
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.example.zadanie.R
-import com.example.zadanie.databinding.FragmentBarsBinding
+import com.example.zadanie.databinding.FragmentContactsBinding
 import com.example.zadanie.helpers.Injection
 import com.example.zadanie.helpers.PreferenceData
-import com.example.zadanie.ui.viewmodels.BarsViewModel
+import com.example.zadanie.ui.viewmodels.ContactsViewModel
+import androidx.core.view.MenuProvider
 
-class BarsFragment : Fragment(), MenuProvider {
-    private lateinit var binding: FragmentBarsBinding
-    private lateinit var viewmodel: BarsViewModel
 
-    private val locationPermissionRequest = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                Navigation.findNavController(requireView()).navigate(R.id.action_to_locate)
-                // Precise location access granted.
-            }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                viewmodel.show("Only approximate location access granted.")
-                // Only approximate location access granted.
-            }
-            else -> {
-                viewmodel.show("Location access denied.")
-                // No location access granted.
-            }
-        }
-    }
+
+class ContactsFragment : Fragment(), MenuProvider {
+    private lateinit var binding: FragmentContactsBinding
+    private lateinit var viewmodel: ContactsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,16 +29,15 @@ class BarsFragment : Fragment(), MenuProvider {
         viewmodel = ViewModelProvider(
             this,
             Injection.provideViewModelFactory(requireContext())
-        ).get(BarsViewModel::class.java)
+        ).get(ContactsViewModel::class.java)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBarsBinding.inflate(inflater, container, false)
+        binding = FragmentContactsBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -86,19 +61,6 @@ class BarsFragment : Fragment(), MenuProvider {
 
             bnd.swiperefresh.setOnRefreshListener {
                 viewmodel.refreshData()
-            }
-
-            bnd.findBar.setOnClickListener {
-                if (checkPermissions()) {
-                    it.findNavController().navigate(R.id.action_to_locate)
-                } else {
-                    locationPermissionRequest.launch(
-                        arrayOf(
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        )
-                    )
-                }
             }
         }
 
@@ -133,10 +95,12 @@ class BarsFragment : Fragment(), MenuProvider {
                 PreferenceData.getInstance().clearData(requireContext())
                 view?.let { Navigation.findNavController(it).navigate(R.id.action_to_login) }
             }
+
             R.id.goToContactsMenuItem -> {
                 view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }
             }
         }
         return false
     }
+
 }
