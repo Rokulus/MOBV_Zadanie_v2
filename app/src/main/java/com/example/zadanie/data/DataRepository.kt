@@ -9,6 +9,7 @@ import com.example.zadanie.data.db.model.BarItem
 import com.example.zadanie.data.db.model.ContactItem
 import com.example.zadanie.ui.viewmodels.data.MyLocation
 import com.example.zadanie.ui.viewmodels.data.NearbyBar
+import kotlinx.coroutines.delay
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -213,7 +214,7 @@ class DataRepository private constructor(
             val resp = service.contactList()
             if (resp.isSuccessful) {
                 resp.body()?.let { contacts ->
-                    Log.i("Contacts before map", contacts.toString())
+//                    Log.i("Contacts before map", contacts.toString())
                     val c = contacts.map {
                         ContactItem(
                             it.user_id,
@@ -227,7 +228,7 @@ class DataRepository private constructor(
                     }
                     cache.deleteContacts()
                     cache.insertContacts(c)
-                    Log.i("Contacts", c.toString())
+//                    Log.i("Contacts", c.toString())
                 } ?: onError("Failed to load contacts")
             } else {
                 onError("Failed to read contacts")
@@ -244,6 +245,30 @@ class DataRepository private constructor(
 
     fun dbContacts() : LiveData<List<ContactItem>?> {
         return cache.getContacts()
+    }
+
+    suspend fun apiAddContact(
+        username: String,
+        onError: (error: String) -> Unit,
+        onSuccess: (success: String) -> Unit
+    ) {
+        try {
+            val resp = service.addContact(AddContactRequest(contact = username))
+            Log.i("Add Contact", resp.toString())
+            Log.i("Contact name", username)
+            if(resp.isSuccessful){
+                delay(2000)
+                onSuccess("Successfully added")
+            } else {
+                onError("Failed to add contact, try again later.")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to add contact, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Failed to add contact, error.")
+        }
     }
 
     companion object{

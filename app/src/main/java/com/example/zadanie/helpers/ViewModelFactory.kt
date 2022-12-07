@@ -3,11 +3,7 @@ package com.example.zadanie.helpers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.zadanie.data.DataRepository
-import com.example.zadanie.ui.viewmodels.AuthViewModel
-import com.example.zadanie.ui.viewmodels.BarsViewModel
-import com.example.zadanie.ui.viewmodels.DetailViewModel
-import com.example.zadanie.ui.viewmodels.LocateViewModel
-import com.example.zadanie.ui.viewmodels.ContactsViewModel
+import com.example.zadanie.ui.viewmodels.*
 
 class ViewModelFactory(private val repository: DataRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -32,8 +28,13 @@ class ViewModelFactory(private val repository: DataRepository) : ViewModelProvid
         }
 
         if (modelClass.isAssignableFrom(ContactsViewModel::class.java)) {
-            @Suppress("UNCKECKED_CAST")
+            @Suppress("UNCHECKED_CAST")
             return ContactsViewModel(repository) as T
+        }
+
+        if (modelClass.isAssignableFrom(AddContactViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return AddContactViewModel(repository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

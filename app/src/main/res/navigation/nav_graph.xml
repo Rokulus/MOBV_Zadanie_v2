@@ -38,6 +38,12 @@
         android:label="fragment_contacts"
         tools:layout="@layout/fragment_contacts" />
 
+    <fragment
+        android:id="@+id/add_contact_fragment"
+        android:name="com.example.zadanie.ui.fragments.AddContactFragment"
+        android:label="fragment_add_contact"
+        tools:layout="@layout/fragment_add_contact" />
+
     <action
         android:id="@+id/action_to_login"
         app:destination="@id/login_fragment" />
@@ -56,4 +62,7 @@
     <action
         android:id="@+id/action_to_contacts"
         app:destination="@+id/contacts_fragment"/>
+    <action
+        android:id="@+id/action_to_add_contact"
+        app:destination="@+id/add_contact_fragment"/>
 </navigation>

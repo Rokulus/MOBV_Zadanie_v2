@@ -18,6 +18,10 @@
                 android:icon="@drawable/ic_baseline_contact_page_24"
                 android:title="@string/contacts"
                 app:showAsAction="withText" />
+            <item
+                android:id="@+id/goToAddContact"
+                android:title="@string/add_contact"
+                app:showAsAction="withText" />
         </menu>
 
     </item>

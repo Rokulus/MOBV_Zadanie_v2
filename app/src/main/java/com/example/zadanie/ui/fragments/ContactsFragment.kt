@@ -99,6 +99,10 @@ class ContactsFragment : Fragment(), MenuProvider {
             R.id.goToContactsMenuItem -> {
                 view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }
             }
+
+            R.id.goToAddContact -> {
+                view?.let { Navigation.findNavController(it).navigate(R.id.action_to_add_contact) }
+            }
         }
         return false
     }
