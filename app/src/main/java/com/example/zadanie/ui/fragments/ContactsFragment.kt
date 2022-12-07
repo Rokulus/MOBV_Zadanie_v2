@@ -16,7 +16,7 @@ import com.example.zadanie.helpers.Injection
 import com.example.zadanie.helpers.PreferenceData
 import com.example.zadanie.ui.viewmodels.ContactsViewModel
 import androidx.core.view.MenuProvider
-
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class ContactsFragment : Fragment(), MenuProvider {
@@ -37,6 +37,7 @@ class ContactsFragment : Fragment(), MenuProvider {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
         binding = FragmentContactsBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()

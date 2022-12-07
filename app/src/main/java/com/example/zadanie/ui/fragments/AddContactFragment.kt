@@ -17,6 +17,7 @@ import com.example.zadanie.helpers.Evento
 import com.example.zadanie.helpers.Injection
 import kotlinx.coroutines.launch
 import com.example.zadanie.ui.viewmodels.AddContactViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AddContactFragment() : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
@@ -43,6 +44,7 @@ class AddContactFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
         binding = FragmentAddContactBinding.inflate(inflater, container, false)
         return binding.root
     }

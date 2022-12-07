@@ -17,6 +17,7 @@ import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import com.example.zadanie.R.drawable.ic_baseline_visibility_24
 import com.example.zadanie.R.drawable.ic_baseline_visibility_off_24
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -37,6 +38,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }

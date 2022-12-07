@@ -29,6 +29,7 @@ import com.example.zadanie.ui.viewmodels.data.MyLocation
 import com.example.zadanie.ui.viewmodels.data.NearbyBar
 import com.example.zadanie.ui.widget.nearbyBars.NearbyBarsEvents
 import com.google.android.gms.location.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LocateFragment : Fragment() {
     private lateinit var binding: FragmentLocateBinding
@@ -68,6 +69,7 @@ class LocateFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
         binding = FragmentLocateBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -126,6 +128,12 @@ class LocateFragment : Fragment() {
         if (checkPermissions()) {
             loadData()
         } else {
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
             Navigation.findNavController(requireView()).navigate(R.id.action_to_bars)
         }
 

@@ -16,6 +16,7 @@ import com.example.zadanie.databinding.FragmentDetailBarBinding
 import com.example.zadanie.helpers.Injection
 import com.example.zadanie.helpers.PreferenceData
 import com.example.zadanie.ui.viewmodels.DetailViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BarDetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBarBinding
@@ -36,6 +37,7 @@ class BarDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         binding = FragmentDetailBarBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -23,6 +23,7 @@ import com.example.zadanie.databinding.FragmentBarsBinding
 import com.example.zadanie.helpers.Injection
 import com.example.zadanie.helpers.PreferenceData
 import com.example.zadanie.ui.viewmodels.BarsViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BarsFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentBarsBinding
@@ -62,6 +63,9 @@ class BarsFragment : Fragment(), MenuProvider {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
+
         binding = FragmentBarsBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()
@@ -88,18 +92,18 @@ class BarsFragment : Fragment(), MenuProvider {
                 viewmodel.refreshData()
             }
 
-            bnd.findBar.setOnClickListener {
-                if (checkPermissions()) {
-                    it.findNavController().navigate(R.id.action_to_locate)
-                } else {
-                    locationPermissionRequest.launch(
-                        arrayOf(
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        )
-                    )
-                }
-            }
+//            bnd.findBar.setOnClickListener {
+//                if (checkPermissions()) {
+//                    it.findNavController().navigate(R.id.action_to_locate)
+//                } else {
+//                    locationPermissionRequest.launch(
+//                        arrayOf(
+//                            Manifest.permission.ACCESS_FINE_LOCATION,
+//                            Manifest.permission.ACCESS_COARSE_LOCATION
+//                        )
+//                    )
+//                }
+//            }
         }
 
         viewmodel.loading.observe(viewLifecycleOwner) {

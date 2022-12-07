@@ -19,6 +19,7 @@ import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import com.example.zadanie.R.drawable.ic_baseline_visibility_24
 import com.example.zadanie.R.drawable.ic_baseline_visibility_off_24
 import com.example.zadanie.helpers.Config.PASSWORD_PATTERN
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
@@ -39,6 +40,7 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }

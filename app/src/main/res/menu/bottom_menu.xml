@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Pubs"
+        android:id="@+id/bars_fragment"
+        android:icon="@drawable/ic_baseline_sports_bar_24"/>
+    <item android:title="Nearby pubs"
+        android:id="@+id/locate_fragment"
+        android:icon="@drawable/ic_baseline_location_on_24"/>
+    <item android:title="Contacts"
+        android:id="@+id/contacts_fragment"
+        android:icon="@drawable/ic_baseline_people_24"/>
+</menu>
