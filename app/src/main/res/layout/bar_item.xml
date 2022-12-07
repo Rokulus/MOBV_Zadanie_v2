@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/layout_bg">
 
         <TextView
             android:id="@+id/name"
@@ -16,6 +19,7 @@
             android:paddingTop="16dp"
             android:paddingStart="25dp"
             android:paddingEnd="16dp"
+            android:textColor="@color/dahlia"
             style="@style/TextAppearance.AppCompat.Medium"
             tools:text="Bar" />
 
@@ -24,7 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
+            android:layout_toEndOf="@id/bar_type_img"
             android:layout_marginStart="20dp"
+            android:textColor="@color/dahlia"
             tools:text="Type" />
 
         <TextView
@@ -34,10 +40,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="226dp"
-            android:layout_marginTop="22dp"
-            android:layout_toEndOf="@id/type"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/type"
+            android:textColor="@color/dahlia"
             tools:text="User Count" />
+
+        <ImageView
+            android:id="@+id/bar_type_img"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/name"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="7dp"
+            app:srcCompat="@drawable/ic_baseline_house_24" />
 
     </RelativeLayout>
 </layout>

@@ -64,6 +64,6 @@ class AddContactFragment() : Fragment() {
 //            }
             viewModel.addContact(binding.contactUsername.text.toString())
         }
-        //view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }
+        view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }
     }
 }

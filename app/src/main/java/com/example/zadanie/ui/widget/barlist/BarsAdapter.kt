@@ -3,6 +3,7 @@ package com.example.zadanie.ui.widget.barlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zadanie.R
@@ -39,8 +40,21 @@ class BarsAdapter(val events: BarsEvents? = null) :
 
         fun bind(item: BarItem, events: BarsEvents?) {
             itemView.findViewById<TextView>(R.id.name).text = item.name
-            itemView.findViewById<TextView>(R.id.count).text = item.users.toString()
+            itemView.findViewById<TextView>(R.id.count).text = "Customers: "  + item.users.toString()
             itemView.findViewById<Chip>(R.id.type).text = item.type
+
+            itemView.findViewById<ImageView>(R.id.bar_type_img).setImageResource(
+                when(item.type) {
+                    "fast_food" -> R.drawable.ic_baseline_fastfood_24
+                    "restaurant" -> R.drawable.ic_baseline_restaurant_24
+                    "cafe" -> R.drawable.ic_baseline_local_cafe_24
+                    "pub" -> R.drawable.ic_baseline_sports_bar_24
+                    "bar" -> R.drawable.ic_baseline_local_bar_24
+                    else -> R.drawable.ic_baseline_house_24
+                }
+            )
+
+            //itemView.findViewById<ImageView>(R.id.bar_type_img).setImageResource(R.drawable.ic_baseline_directions_walk_24)
 
             itemView.setOnClickListener { events?.onBarClick(item) }
         }

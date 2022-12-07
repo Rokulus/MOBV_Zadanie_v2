@@ -1,6 +1,7 @@
 package com.example.zadanie.data.api
 
 data class UserResponse(
+    val name: String,
     val uid: String,
     val access: String,
     val refresh: String
