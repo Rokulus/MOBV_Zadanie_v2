@@ -23,18 +23,6 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <TextView
-            android:id="@+id/back"
-            style="@style/TextAppearance.Material3.BodyMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/header_title"
-            app:layout_constraintBottom_toBottomOf="@id/header_title"
-            />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/detailBox"
             android:padding="8dp"
@@ -47,7 +35,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:background="@drawable/layout_bg">
 
                 <TextView
                     android:id="@+id/name"
@@ -59,6 +48,7 @@
                     android:paddingEnd="16dp"
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:text="@{model.myBar.name}"
+                    android:textColor="@color/dahlia"
                     tools:text="Bar"
                     />
 
@@ -67,6 +57,7 @@
                     android:text="@{model.myBar.type}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/dahlia"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/name"/>
 

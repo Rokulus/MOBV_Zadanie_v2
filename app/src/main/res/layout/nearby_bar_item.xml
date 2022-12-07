@@ -1,41 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="12dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/distance"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_weight="3"
-        style="@style/TextAppearance.AppCompat.Medium"
-        tools:text="Bar"
-        />
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/TextAppearance.AppCompat.Medium"
-        tools:text="500"
-        />
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/layout_bg">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingTop="16dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/dahlia"
+            style="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Bar"
+            />
 
+        <TextView
+            android:id="@+id/distance"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/type"
+            android:textColor="@color/dahlia"
+            tools:text="500"
+            />
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/bar_type_img"
+            android:textColor="@color/dahlia"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/bar_type_img"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/name"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_baseline_house_24" />
+
+        </RelativeLayout>
+    </layout>

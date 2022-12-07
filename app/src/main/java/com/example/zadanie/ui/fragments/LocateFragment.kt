@@ -88,9 +88,7 @@ class LocateFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             model = viewmodel
         }.also { bnd ->
-            bnd.back.setOnClickListener {
-                it.findNavController().popBackStack()
-            }
+
             bnd.swiperefresh.setOnRefreshListener {
                 loadData()
             }
