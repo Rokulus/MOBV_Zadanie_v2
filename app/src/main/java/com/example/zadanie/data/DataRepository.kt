@@ -238,7 +238,6 @@ class DataRepository private constructor(
             val resp = service.contactList()
             if (resp.isSuccessful) {
                 resp.body()?.let { contacts ->
-//                    Log.i("Contacts before map", contacts.toString())
                     val c = contacts.map {
                         ContactItem(
                             it.user_id,
@@ -252,7 +251,6 @@ class DataRepository private constructor(
                     }
                     cache.deleteContacts()
                     cache.insertContacts(c)
-//                    Log.i("Contacts", c.toString())
                 } ?: onError("Failed to load contacts")
             } else {
                 onError("Failed to read contacts")
@@ -262,7 +260,6 @@ class DataRepository private constructor(
             onError("Failed to load contacts, check internet connection")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            Log.e("Exception caught:", ex.toString())
             onError("Failed to load contacts, error.")
         }
     }
@@ -278,8 +275,6 @@ class DataRepository private constructor(
     ) {
         try {
             val resp = service.addContact(AddContactRequest(contact = username))
-            Log.i("Add Contact", resp.toString())
-            Log.i("Contact name", username)
             if(resp.isSuccessful){
                 delay(2000)
                 onSuccess("Successfully added")

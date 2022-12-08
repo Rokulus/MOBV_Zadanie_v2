@@ -63,7 +63,7 @@ class BarDetailFragment : Fragment() {
                     Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(
-                            " " +
+                            "geo:0,0,?q=" +
                                     "${viewModel.bar.value?.lat ?: 0}," +
                                     "${viewModel.bar.value?.lon ?: 0}" +
                                     "(${viewModel.bar.value?.name ?: ""}"
