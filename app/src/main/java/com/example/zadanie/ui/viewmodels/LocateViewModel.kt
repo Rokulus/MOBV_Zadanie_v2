@@ -7,6 +7,8 @@ import com.example.zadanie.helpers.Evento
 import com.example.zadanie.ui.viewmodels.data.MyLocation
 import com.example.zadanie.ui.viewmodels.data.NearbyBar
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.concurrent.schedule
 
 class LocateViewModel(private val repository: DataRepository): ViewModel() {
     private val _message = MutableLiveData<Evento<String>>()
@@ -38,15 +40,18 @@ class LocateViewModel(private val repository: DataRepository): ViewModel() {
     }
 
     fun checkMe(){
-        viewModelScope.launch {
-            loading.postValue(true)
-            myBar.value?.let {
-                repository.apiBarCheckin(
-                    it,
-                    {_message.postValue(Evento(it))},
-                    {_checkedIn.postValue(Evento(it))})
+
+        Timer().schedule(1000){
+            viewModelScope.launch {
+                loading.postValue(true)
+                myBar.value?.let {
+                    repository.apiBarCheckin(
+                        it,
+                        {_message.postValue(Evento(it))},
+                        {_checkedIn.postValue(Evento(it))})
+                }
+                loading.postValue(false)
             }
-            loading.postValue(false)
         }
     }
 

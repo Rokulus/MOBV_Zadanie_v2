@@ -98,7 +98,9 @@ class LocateFragment : Fragment(), MenuProvider {
                 loadData()
             }
 
-            bnd.checkme.setOnClickListener {
+            bnd.animationView.setOnClickListener{
+                bnd.animationView.playAnimation()
+
                 if (checkBackgroundPermissions()) {
                     viewmodel.checkMe()
                 } else {
@@ -107,6 +109,7 @@ class LocateFragment : Fragment(), MenuProvider {
                     }
                 }
             }
+
             bnd.nearbyBars.events = object : NearbyBarsEvents {
                 override fun onBarClick(nearbyBar: NearbyBar) {
                     viewmodel.myBar.postValue(nearbyBar)
