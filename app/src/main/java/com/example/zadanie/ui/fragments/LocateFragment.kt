@@ -8,14 +8,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -31,7 +32,7 @@ import com.example.zadanie.ui.widget.nearbyBars.NearbyBarsEvents
 import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class LocateFragment : Fragment() {
+class LocateFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentLocateBinding
     private lateinit var viewmodel: LocateViewModel
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -71,6 +72,10 @@ class LocateFragment : Fragment() {
     ): View {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
         binding = FragmentLocateBinding.inflate(inflater, container, false)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         return binding.root
     }
 
@@ -237,4 +242,19 @@ class LocateFragment : Fragment() {
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.nearby_bar_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when(menuItem.itemId){
+            R.id.logoutMenuItem -> {
+                PreferenceData.getInstance().clearData(requireContext())
+                view?.let { Navigation.findNavController(it).navigate(R.id.action_to_login) }
+            }
+        }
+        return false
+    }
+
 }

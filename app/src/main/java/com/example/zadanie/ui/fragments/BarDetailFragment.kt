@@ -3,6 +3,7 @@ package com.example.zadanie.ui.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,11 +63,20 @@ class BarDetailFragment : Fragment() {
                     Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(
-                            "geo:0,0,?q=" +
+                            " " +
                                     "${viewModel.bar.value?.lat ?: 0}," +
                                     "${viewModel.bar.value?.lon ?: 0}" +
                                     "(${viewModel.bar.value?.name ?: ""}"
                         )
+                    )
+                )
+            }
+
+            bnd.websiteButton.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(viewModel.bar.value?.tags?.get("website"))
                     )
                 )
             }

@@ -16,6 +16,8 @@ class DetailViewModel(private val repository: DataRepository) : ViewModel() {
 
     val bar = MutableLiveData<NearbyBar>(null)
     val type = bar.map { it?.tags?.getOrDefault("amenity", "") ?: "" }
+    val phoneNumber = bar.map { it?.tags?.getOrDefault("phone", "") ?: "" }
+    val website = bar.map { it?.tags?.getOrDefault("website", "") ?: "" }
     val details: LiveData<List<BarDetailItem>> = bar.switchMap {
         liveData {
             it?.let {

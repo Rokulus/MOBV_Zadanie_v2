@@ -8,6 +8,10 @@
             name="fragment"
             type="com.example.zadanie.ui.fragments.AddContactFragment" />
 
+        <variable
+            name="model"
+            type="com.example.zadanie.ui.viewmodels.AddContactViewModel" />
+
         <import type="android.view.View"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +58,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contact_username"
             app:layout_constraintVertical_bias="0.154" />
+
+        <ImageButton
+            android:id="@+id/back"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="71dp"
+            android:layout_height="59dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.714" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

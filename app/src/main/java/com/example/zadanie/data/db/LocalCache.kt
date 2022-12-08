@@ -13,6 +13,18 @@ class LocalCache(private val dao: DbDao) {
 
     fun getBars(): LiveData<List<BarItem>?> = dao.getBars()
 
+    fun getBarsByName(): LiveData<List<BarItem>?> = dao.getBarsByName()
+
+    fun getBarsByCount(): LiveData<List<BarItem>?> = dao.getBarsByCount()
+
+    fun getBarsByType(): LiveData<List<BarItem>?> = dao.getBarsByType()
+
+    fun getBarsByNameDesc(): LiveData<List<BarItem>?> = dao.getBarsByNameDesc()
+
+    fun getBarsByCountAsc(): LiveData<List<BarItem>?> = dao.getBarsByCountAsc()
+
+    fun getBarsByTypeDesc(): LiveData<List<BarItem>?> = dao.getBarsByTypeDesc()
+
     suspend fun insertContacts(contacts: List<ContactItem>){
         dao.insertContacts(contacts)
     }

@@ -207,6 +207,30 @@ class DataRepository private constructor(
         return cache.getBars()
     }
 
+    fun dbBarsByName() : LiveData<List<BarItem>?> {
+        return cache.getBarsByName()
+    }
+
+    fun dbBarsByCount() : LiveData<List<BarItem>?> {
+        return cache.getBarsByCount()
+    }
+
+    fun dbBarsByType() : LiveData<List<BarItem>?> {
+        return cache.getBarsByType()
+    }
+
+    fun dbBarsByNameDesc() : LiveData<List<BarItem>?> {
+        return cache.getBarsByNameDesc()
+    }
+
+    fun dbBarsByCountAsc() : LiveData<List<BarItem>?> {
+        return cache.getBarsByCountAsc()
+    }
+
+    fun dbBarsByTypeDesc() : LiveData<List<BarItem>?> {
+        return cache.getBarsByTypeDesc()
+    }
+
     suspend fun apiContactList(
         onError: (error: String) -> Unit
     ) {

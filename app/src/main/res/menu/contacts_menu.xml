@@ -14,19 +14,9 @@
                 android:title="@string/log_out"
                 app:showAsAction="withText" />
             <item
-                android:id="@+id/sortByName"
-                android:title="Sort By Names"
-                android:icon="@drawable/ic_baseline_sort_by_alpha_24"
-                app:showAsAction="withText" />
-            <item
-                android:id="@+id/sortByCount"
-                android:title="Sort By Count"
-                android:icon="@drawable/ic_baseline_sort_24"
-                app:showAsAction="withText" />
-            <item
-                android:id="@+id/sortByType"
-                android:title="Sort By Type"
-                android:icon="@drawable/ic_baseline_sort_24"
+                android:id="@+id/goToAddContact"
+                android:icon="@drawable/ic_baseline_person_add_24"
+                android:title="@string/add_contact"
                 app:showAsAction="withText" />
 
         </menu>

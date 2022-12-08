@@ -13,8 +13,10 @@ import com.example.zadanie.databinding.FragmentAddContactBinding
 import com.example.zadanie.data.DataRepository
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.zadanie.helpers.Evento
 import com.example.zadanie.helpers.Injection
+import com.example.zadanie.helpers.PreferenceData
 import kotlinx.coroutines.launch
 import com.example.zadanie.ui.viewmodels.AddContactViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,12 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class AddContactFragment() : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
     private lateinit var viewModel: AddContactViewModel
-//    private val _successAddedContact = MutableLiveData<Evento<Boolean>>()
-//    val successAddedContact: LiveData<Evento<Boolean>>
-//        get() = _successAddedContact
-//    private val _message = MutableLiveData<Evento<String>>()
-//    val message: LiveData<Evento<String>>
-//        get() = _message
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +40,7 @@ class AddContactFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         binding = FragmentAddContactBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -52,18 +48,24 @@ class AddContactFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val x = PreferenceData.getInstance().getUserItem(requireContext())
+        if ((x?.uid ?: "").isBlank()) {
+            Navigation.findNavController(view).navigate(R.id.action_to_login)
+            return
+        }
+
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            model = viewModel
+        }.also { bnd ->
+            bnd.back.setOnClickListener { it.findNavController().popBackStack() }
+        }
+
         binding.fragment = this
     }
 
     fun addContact() {
         if(binding.contactUsername.toString().isNotBlank()){
-//            lifecycleScope.launch {
-//                repository.apiAddContact(
-//                    binding.contactUsername.toString(),
-//                    {_message.postValue(Evento(binding.contactUsername.toString()))},
-//                    {_successAddedContact.postValue(Evento(false))}
-//                )
-//            }
             viewModel.addContact(binding.contactUsername.text.toString())
         }
         view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }

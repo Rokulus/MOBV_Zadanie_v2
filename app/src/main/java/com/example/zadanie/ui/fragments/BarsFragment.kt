@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -138,12 +139,16 @@ class BarsFragment : Fragment(), MenuProvider {
                 view?.let { Navigation.findNavController(it).navigate(R.id.action_to_login) }
             }
 
-            R.id.goToContactsMenuItem -> {
-                view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }
+            R.id.sortByName -> {
+                viewmodel.sortByName()
             }
 
-            R.id.goToAddContact -> {
-                view?.let { Navigation.findNavController(it).navigate(R.id.action_to_add_contact) }
+            R.id.sortByCount -> {
+                viewmodel.sortByCount()
+            }
+
+            R.id.sortByType -> {
+                viewmodel.sortByType()
             }
         }
         return false

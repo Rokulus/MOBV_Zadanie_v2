@@ -87,7 +87,7 @@ class ContactsFragment : Fragment(), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.bars_menu, menu)
+        menuInflater.inflate(R.menu.contacts_menu, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -95,10 +95,6 @@ class ContactsFragment : Fragment(), MenuProvider {
             R.id.logoutMenuItem -> {
                 PreferenceData.getInstance().clearData(requireContext())
                 view?.let { Navigation.findNavController(it).navigate(R.id.action_to_login) }
-            }
-
-            R.id.goToContactsMenuItem -> {
-                view?.let { Navigation.findNavController(it).navigate(R.id.action_to_contacts) }
             }
 
             R.id.goToAddContact -> {
